@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://manujayak-hub.github.io/sitemap.xml
