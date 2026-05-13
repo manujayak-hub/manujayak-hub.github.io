@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Manujaya | Software Engineer</title>
+
+  <!-- CSS FILES -->
+
+  <link rel="stylesheet" href="css/main.css">
+
+  <link rel="stylesheet" href="css/navbar.css">
+
+  <link rel="stylesheet" href="css/hero.css">
+
+  <link rel="stylesheet" href="css/about.css">
+
+  <link rel="stylesheet" href="css/skills.css">
+
+  <link rel="stylesheet" href="css/projects.css">
+
+  <link rel="stylesheet" href="css/testimonials.css">
+
+  <link rel="stylesheet" href="css/contact.css">
+
+  <link rel="stylesheet" href="css/footer.css">
+
+</head>
+
+<body>
+
+  <!-- CONTENT LOADS HERE -->
+
+  <div id="main-content"></div>
+
+  <!-- MAIN SCRIPT -->
+
+  <script>
+
+    // LOAD HTML SECTION
+
+    async function loadSection(path, target){
+
+      const res = await fetch(path);
+
+      const html = await res.text();
+
+      target.insertAdjacentHTML('beforeend', html);
+    }
+
+    // INITIALIZE WEBSITE
+
+    async function initWebsite(){
+
+      const main = document.getElementById('main-content');
+
+      // LOAD NAVBAR
+
+      await loadSection('sections/navbar.html', main);
+
+      // LOAD HERO
+
+      await loadSection('sections/hero.html', main);
+
+      // LOAD ABOUT
+
+      await loadSection('sections/about.html', main);
+
+      // LOAD SKILLS
+
+      await loadSection('sections/skills.html', main);
+
+      // LOAD PROJECTS
+
+      await loadSection('sections/projects.html', main);
+
+      // LOAD TESTIMONIALS
+
+      await loadSection('sections/testimonials.html', main);
+
+      // LOAD CONTACT
+
+      await loadSection('sections/contact.html', main);
+
+      // LOAD FOOTER
+
+      await loadSection('sections/footer.html', main);
+
+      // AUTO YEAR
+
+      const year = document.getElementById("year");
+
+      if(year){
+
+        year.textContent = new Date().getFullYear();
+      }
+
+      // SCROLL ANIMATION
+
+      const hiddenElements = document.querySelectorAll('.hidden');
+
+      const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach((entry) => {
+
+          if(entry.isIntersecting){
+
+            entry.target.classList.add('show');
+          }
+
+        });
+
+      });
+
+      hiddenElements.forEach((el) => observer.observe(el));
+    }
+
+    // START WEBSITE
+
+    initWebsite();
+
+  </script>
+
+</body>
+
+</html>

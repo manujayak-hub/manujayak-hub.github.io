@@ -1,0 +1,68 @@
+/* Main site-wide styles */
+@import url('hero.css');
+@import url('about.css');
+@import url('skills.css');
+@import url('projects.css');
+@import url('testimonials.css');
+@import url('contact.css');
+@import url('navbar.css');
+@import url('footer.css');
+
+:root{
+  --bg:#0d0d0d;
+  --card:#161616;
+  --orange:#ff7a00;
+  --orange2:#ff9d42;
+  --white:#ffffff;
+  --gray:#b5b5b5;
+}
+
+body{
+  background:var(--bg);
+  color:var(--white);
+  overflow-x:hidden;
+  font-family:'Segoe UI',sans-serif;
+}
+
+section{
+  padding:65px 5%;
+  position:relative;
+}
+
+.section-title{
+  font-size:32px;
+  margin-bottom:14px;
+  color:var(--orange);
+  position:relative;
+  width:max-content;
+}
+
+.section-title::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:-8px;
+  width:60%;
+  height:4px;
+  background:var(--orange);
+  border-radius:20px;
+}
+
+.section-subtitle{
+  color:var(--gray);
+  max-width:650px;
+  line-height:1.8;
+  margin-bottom:32px;
+  font-size:13px;
+}
+
+.hidden{
+  opacity:0;
+  transform:translateY(25px);
+  transition:0.7s;
+}
+
+.show{
+  opacity:1;
+  transform:translateY(0);
+}

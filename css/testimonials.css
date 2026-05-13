@@ -1,0 +1,5 @@
+/* Testimonials section styles */
+.testimonial-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;}
+.testimonial{background:var(--card);padding:18px;border-radius:14px;border-left:4px solid var(--orange);}
+.testimonial p{color:var(--gray);line-height:1.7;margin-bottom:10px;font-size:12px;}
+.testimonial h4{color:var(--orange);font-size:13px;}

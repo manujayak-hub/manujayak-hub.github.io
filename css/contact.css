@@ -1,0 +1,6 @@
+/* Contact section styles */
+.contact-box{background:var(--card);padding:18px;border-radius:14px;}
+form{display:grid;gap:10px;}
+input,textarea{width:100%;padding:10px;border:none;border-radius:8px;background:#101010;border:1px solid #252525;color:white;outline:none;font-size:12px;}
+input:focus,textarea:focus{border-color:var(--orange);}
+textarea{min-height:60px;resize:none;}
