@@ -53,7 +53,7 @@
   padding:9px 14px;
   color:#ffffff;
   background:linear-gradient(135deg,var(--orange),var(--orange2));
-  box-shadow:0 10px 24px rgba(255,122,0,0.18);
+  box-shadow:0 10px 24px rgba(var(--primary-rgb),0.18);
 }
 
 .nav-links a::after{

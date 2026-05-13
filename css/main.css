@@ -1,18 +1,11 @@
-/* Main site-wide styles */
-@import url('hero.css');
-@import url('about.css');
-@import url('skills.css');
-@import url('projects.css');
-@import url('testimonials.css');
-@import url('contact.css');
-@import url('navbar.css');
-@import url('footer.css');
-
 :root{
   --bg:#0d0d0d;
   --card:#161616;
-  --orange:#ff7a00;
-  --orange2:#ff9d42;
+  --primary:#ff7a00;
+  --primary-2:#ff9d42;
+  --primary-rgb:255,122,0;
+  --orange:var(--primary);
+  --orange2:var(--primary-2);
   --white:#ffffff;
   --gray:#b5b5b5;
 }

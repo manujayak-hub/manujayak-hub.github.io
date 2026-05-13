@@ -153,54 +153,96 @@
 
   <script>
 
-    // LOAD HTML SECTION
+    const themes = [
+      { primary:'#ff7a00', secondary:'#ff9d42', rgb:'255,122,0' },
+      { primary:'#24d4ff', secondary:'#5ee7ff', rgb:'36,212,255' },
+      { primary:'#20e070', secondary:'#6cf2a3', rgb:'32,224,112' },
+      { primary:'#ff4f8b', secondary:'#ff86b0', rgb:'255,79,139' }
+    ];
 
-    async function loadSection(path, target){
+    function applyTheme(theme){
+      const root = document.documentElement;
+      const themeColor = document.querySelector('meta[name="theme-color"]');
 
+      root.style.setProperty('--primary', theme.primary);
+      root.style.setProperty('--primary-2', theme.secondary);
+      root.style.setProperty('--primary-rgb', theme.rgb);
+
+      if(themeColor){
+        themeColor.setAttribute('content', theme.primary);
+      }
+    }
+
+    function rotateTheme(){
+      let index = Math.floor(Date.now() / 15000) % themes.length;
+      applyTheme(themes[index]);
+
+      setInterval(() => {
+        index = (index + 1) % themes.length;
+        applyTheme(themes[index]);
+      }, 15000);
+    }
+
+    async function getSection(path){
       const res = await fetch(path);
 
-      const html = await res.text();
+      if(!res.ok){
+        throw new Error(`Could not load ${path}`);
+      }
 
-      target.insertAdjacentHTML('beforeend', html);
+      return res.text();
+    }
+
+    function revealHiddenElements(){
+      const hiddenElements = document.querySelectorAll('.hidden:not(.observed)');
+
+      const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach((entry) => {
+
+          if(entry.isIntersecting){
+
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+
+        });
+
+      });
+
+      hiddenElements.forEach((el) => {
+        el.classList.add('observed');
+        observer.observe(el);
+      });
     }
 
     // INITIALIZE WEBSITE
 
     async function initWebsite(){
 
+      rotateTheme();
+
       const main = document.getElementById('main-content');
+      const aboveFoldSections = [
+        'sections/navbar.html',
+        'sections/hero.html'
+      ];
+      const remainingSections = [
+        'sections/about.html',
+        'sections/skills.html',
+        'sections/projects.html',
+        'sections/testimonials.html',
+        'sections/contact.html',
+        'sections/footer.html'
+      ];
 
-      // LOAD NAVBAR
+      const aboveFoldHtml = await Promise.all(aboveFoldSections.map(getSection));
+      main.insertAdjacentHTML('beforeend', aboveFoldHtml.join(''));
+      revealHiddenElements();
 
-      await loadSection('sections/navbar.html', main);
-
-      // LOAD HERO
-
-      await loadSection('sections/hero.html', main);
-
-      // LOAD ABOUT
-
-      await loadSection('sections/about.html', main);
-
-      // LOAD SKILLS
-
-      await loadSection('sections/skills.html', main);
-
-      // LOAD PROJECTS
-
-      await loadSection('sections/projects.html', main);
-
-      // LOAD TESTIMONIALS
-
-      await loadSection('sections/testimonials.html', main);
-
-      // LOAD CONTACT
-
-      await loadSection('sections/contact.html', main);
-
-      // LOAD FOOTER
-
-      await loadSection('sections/footer.html', main);
+      const remainingHtml = await Promise.all(remainingSections.map(getSection));
+      main.insertAdjacentHTML('beforeend', remainingHtml.join(''));
+      revealHiddenElements();
 
       // AUTO YEAR
 
@@ -211,24 +253,6 @@
         year.textContent = new Date().getFullYear();
       }
 
-      // SCROLL ANIMATION
-
-      const hiddenElements = document.querySelectorAll('.hidden');
-
-      const observer = new IntersectionObserver((entries) => {
-
-        entries.forEach((entry) => {
-
-          if(entry.isIntersecting){
-
-            entry.target.classList.add('show');
-          }
-
-        });
-
-      });
-
-      hiddenElements.forEach((el) => observer.observe(el));
     }
 
     // START WEBSITE
